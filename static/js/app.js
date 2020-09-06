@@ -24,7 +24,7 @@ function retrieveMetaData(id) {
         });
       });
   }
-  // retrieveMetaData(978);
+retrieveMetaData(978);
 
 
 // Create function to retrieve samples array 
@@ -112,8 +112,8 @@ function buildCharts(id) {
         title: "OTU ID"
       },
       showlegend: false,
-      height: 500, 
-      width: 1000
+      height: 600, 
+      width: 1200
     };
 
     // Create the bubble chart 
