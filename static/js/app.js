@@ -61,25 +61,63 @@ function buildCharts(id) {
     // 1. BAR PLOT 
 
     /// Create the trace
-    var trace1 = {
+    var traceBar = {
       x: topTenSamples,
       y: topTenIds.map(x => "OTU" + x),
       text: topTenLabels,
       type: "bar",
-      orientation: "h"
+      orientation: "h", 
+      marker: {
+        color: sampleResult.otu_ids
+      }
     };
 
     /// Create the data variable 
-    var data = [trace1];
+    var dataBar = [traceBar];
 
     /// Create the layout of the chart 
-    var layout = {
-      title: "The Top Ten OTUs"
-    }
+    var layoutBar = {
+      title: "<b>The Top Ten OTUs</b>",
+      height: 550,
+      width: 550,
+      yaxis: {
+        tickmode: "linear"
+      }
+    };
     
     /// Create the bar plot 
-    Plotly.newPlot("bar", data, layout);
+    Plotly.newPlot("bar", dataBar, layoutBar);
 
+    // 2. BUBBLE CHART 
+
+    /// Create the trace
+    var traceBubble = {
+      x: sampleResult.otu_ids,
+      y: sampleResult.sample_values,
+      mode: "markers",
+      marker: {
+        size: sampleResult.sample_values,
+        color: sampleResult.otu_ids
+      },
+      text: sampleResult.otu_labels
+    };
+
+    // Create the data variable 
+    var dataBubble = [traceBubble];
+
+    // Create the layout 
+    var layoutBubble = {
+      title: "<b>OTU Bubble Chart Representation</b>",
+      xaxis: {
+        title: "OTU ID"
+      },
+      showlegend: false,
+      height: 500, 
+      width: 1000
+    };
+
+    // Create the bubble chart 
+    Plotly.newPlot("bubble", dataBubble, layoutBubble);
   });
 }
   buildCharts(978);
