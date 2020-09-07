@@ -20,4 +20,4 @@ The dataset reveals that a small handful of microbial species (also called opera
   3. Create a bubble chart that displays each sample. 
   4. Display the sample metadata, i.e., an individual's demographic information.
   5. Update each plot and the demographic panel every time a new ID is selected.
-  6. Deploy the app to [Github Pages]()
+  6. Deploy the app to [Github Pages](https://poojaisabelle.github.io/plotly-challenge/)
