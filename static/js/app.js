@@ -3,24 +3,20 @@ function retrieveMetaData(id) {
     d3.json("samples.json").then((Data) => {
 
       // Store metadata in a variable 
-      var metadata = Data.metadata;
-      // console.log(metadata)
-
+      var metaData = Data.metadata;
+      // console.log(metaData)
+ 
       // Filter the metadata by id number 
-      var metaResult = metadata.filter(row => row.id === id)[0];
-      // console.log(metaResult);
-
-      // Display the metadata for each id in the panel 
-      var demographicInfo = d3.select("#sample-metadata");
+      metaResult = metaData.filter(row => row.id == id)[0];
 
       // Clear the panel before new id chosen 
-      demographicInfo.html("");
+      d3.select("#sample-metadata").html("");
 
       // Use forEach to get demo info for respective id 
-      Object.entries(metaResult).forEach((row) => {
+      Object.entries(metaResult).forEach((key) => {
 
         // Append demo info to the panel and format 
-        demographicInfo.append("h5").text(row[0] + ": " + row[1] + "\n");
+        d3.select("#sample-metadata").append("p").text(key[0] + ": " + key[1] + "\n");
         });
       });
   }
@@ -121,6 +117,40 @@ function buildCharts(id) {
   });
 }
   buildCharts(978);
+
+
+// Create an init function to initialize the page with default info/plots 
+function init() {
+
+  // Use D3 to select the dropdown menu (by id)
+  var dropDown = d3.select("#selDataset");
+
+  // Use D3 to read in the JSON data 
+  d3.json("samples.json").then((Data) => {
+
+    // Add all the IDs in the 'names' arrray into the dropdown menu 
+    Data.names.forEach(function(name) {
+      dropDown.append("option").text(name).property("value")
+    });
+
+    // Assign the value of the id chosen in the dropdown to a variable 
+    var idChosen = dropDown.node().value;
+
+    // Call the various functions above to display the default info/plots
+    retrieveMetaData(idChosen);
+    buildCharts(idChosen);
+  });
+}
+
+
+// Account for the change event and retrieve the new plots/info when 
+// new id selected 
+function optionChanged(newID) {
+  buildCharts(newID);
+  retrieveMetaData(newID);
+}
+
+init();
 
 
 
